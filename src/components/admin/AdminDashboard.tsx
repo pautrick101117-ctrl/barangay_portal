@@ -20,12 +20,12 @@ const AdminDashboard = () => {
         complaintsRes,
         suggestionsRes,
       ] = await Promise.all([
-        fetch("https://barangay-portal-server.onrender.com/api/admin/projects"),
-        fetch("https://barangay-portal-server.onrender.com/api/admin/officials"),
-        fetch("https://barangay-portal-server.onrender.com/api/admin/news"),
-        fetch("https://barangay-portal-server.onrender.com/api/admin/funds"),
-        fetch("https://barangay-portal-server.onrender.com/api/admin/complaints"),
-        fetch("https://barangay-portal-server.onrender.com/api/admin/project-suggestions"),
+      fetch("http://localhost:3000/api/admin/projects"),
+      fetch("http://localhost:3000/api/admin/officials"),
+      fetch("http://localhost:3000/api/admin/news"),
+      fetch("http://localhost:3000/api/admin/funds"),
+      fetch("http://localhost:3000/api/admin/complaints"),
+      fetch("http://localhost:3000/api/admin/project-suggestions"),
       ]);
 
       const [

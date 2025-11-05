@@ -16,7 +16,7 @@ const About = () => {
     const fetchOfficials = async () => {
       try {
         const res = await axios.get(
-          "https://barangay-portal-server.onrender.com/api/admin/officials"
+          "http://localhost:3000/api/admin/officials"
         );
         setOfficials(res.data);
       } catch (err) {

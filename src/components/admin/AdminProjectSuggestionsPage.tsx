@@ -12,7 +12,7 @@ const AdminProjectSuggestionsPage: React.FC = () => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "https://barangay-portal-server.onrender.com/api/admin/project-suggestions";
+  const API_URL = "http://localhost:3000/api/admin/project-suggestions";
 
   // Fetch suggestions
   const fetchSuggestions = async () => {

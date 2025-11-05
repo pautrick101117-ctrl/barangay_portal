@@ -21,7 +21,7 @@ const ComplaintPage = () => {
   const fetchComplaints = async () => {
     try {
       const res = await axios.get<Complaint[]>(
-        "https://barangay-portal-server.onrender.com/api/admin/complaints" // ✅ admin route
+        "http://localhost:3000/api/admin/complaints" // ✅ admin route
       );
       // Sort newest first
       setComplaints(
@@ -39,7 +39,7 @@ const ComplaintPage = () => {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this complaint?")) return;
     try {
-      await axios.delete(`https://barangay-portal-server.onrender.com/api/admin/complaints/${id}`); // ✅ admin route
+      await axios.delete(`http://localhost:3000/api/admin/complaints/${id}`); // ✅ admin route
       setComplaints((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
       console.error("Error deleting complaint:", err);

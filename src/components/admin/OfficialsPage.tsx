@@ -27,7 +27,7 @@ const OfficialsPage = () => {
     const fetchOfficials = async () => {
       try {
         const res = await axios.get<Official[]>(
-          "https://barangay-portal-server.onrender.com/api/admin/officials"
+          "http://localhost:3000/api/admin/officials"
         );
         setOfficials(res.data);
       } catch (err) {
@@ -73,7 +73,7 @@ const OfficialsPage = () => {
 
       if (editingId) {
         const res = await axios.put<{ updated: Official }>(
-          `https://barangay-portal-server.onrender.com/api/admin/officials/${editingId}`,
+          `http://localhost:3000/api/admin/officials/${editingId}`,
           payload
         );
         setOfficials((prev) =>
@@ -82,7 +82,7 @@ const OfficialsPage = () => {
         setEditingId(null);
       } else {
         const res = await axios.post<Official>(
-          "https://barangay-portal-server.onrender.com/api/admin/officials",
+          "http://localhost:3000/api/admin/officials",
           payload
         );
         setOfficials((prev) => [res.data, ...prev]);
@@ -111,7 +111,7 @@ const OfficialsPage = () => {
     if (!confirm("Are you sure you want to delete this official?")) return;
     try {
       await axios.delete(
-        `https://barangay-portal-server.onrender.com/api/admin/officials/${id}`
+        `http://localhost:3000/api/admin/officials/${id}`
       );
       setOfficials((prev) => prev.filter((o) => o._id !== id));
     } catch (err) {

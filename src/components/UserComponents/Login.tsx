@@ -33,7 +33,7 @@ const Login = () => {
     e.preventDefault()
 
     try {
-      const res = await fetch("https://barangay-portal-server.onrender.com/api/v1/login", { //https://barangay-portal-server.onrender.com/api/v1/login
+      const res = await fetch("http://localhost:3000/api/v1/login", { //https://barangay-portal-server.onrender.com/api/v1/login
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

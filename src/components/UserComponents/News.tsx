@@ -18,7 +18,7 @@ const News = () => {
     const fetchNews = async () => {
       try {
         const res = await axios.get(
-          "https://barangay-portal-server.onrender.com/api/admin/news"
+          "http://localhost:3000/api/admin/news"
         );
         setNewsList(res.data);
       } catch (err) {

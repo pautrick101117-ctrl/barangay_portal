@@ -30,7 +30,7 @@ const AdminNewsPage = () => {
   const fetchNews = async () => {
     try {
       const res = await axios.get(
-        "https://barangay-portal-server.onrender.com/api/admin/news"
+        "http://localhost:3000/api/admin/news"
       );
       setNewsList(res.data);
     } catch (err) {
@@ -83,7 +83,7 @@ const AdminNewsPage = () => {
       if (editingId) {
         // UPDATE NEWS
         const res = await axios.put(
-          `https://barangay-portal-server.onrender.com/api/admin/news/${editingId}`,
+          `http://localhost:3000/api/admin/news/${editingId}`,
           {
             title,
             description,
@@ -100,7 +100,7 @@ const AdminNewsPage = () => {
       } else {
         // ADD NEWS
         const res = await axios.post(
-          "https://barangay-portal-server.onrender.com/api/admin/news",
+          "http://localhost:3000/api/admin/news",
           {
             title,
             description,
@@ -138,7 +138,7 @@ const AdminNewsPage = () => {
     if (!confirm("Are you sure you want to delete this news article?")) return;
     try {
       await axios.delete(
-        `https://barangay-portal-server.onrender.com/api/admin/news/${id}`
+        `http://localhost:3000/api/admin/news/${id}`
       );
       setNewsList((prev) => prev.filter((n) => n._id !== id));
     } catch (err) {

@@ -18,7 +18,7 @@ const Dashboard = () => {
     const fetchProjects = async () => {
       try {
         const res = await axios.get<Project[]>(
-          "https://barangay-portal-server.onrender.com/api/admin/projects"
+          "http://localhost:3000/api/admin/projects"
         );
         setProjects(res.data);
       } catch (err) {
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
     setLoading(true);
     try {
-      await axios.post("https://barangay-portal-server.onrender.com/api/admin/complaints", {
+      await axios.post("http://localhost:3000/api/admin/complaints", {
         name: "Anonymous", // Replace with actual user name if available
         email: "anonymous@example.com", // Replace with actual user email if available
         message: complaint,

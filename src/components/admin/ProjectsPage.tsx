@@ -19,7 +19,7 @@ const ProjectsPage: React.FC = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get("https://barangay-portal-server.onrender.com/api/admin/projects", {
+      const res = await axios.get("http://localhost:3000/api/admin/projects", {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
       });
 
@@ -41,7 +41,7 @@ const ProjectsPage: React.FC = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "https://barangay-portal-server.onrender.com/api/admin/projects",
+        "http://localhost:3000/api/admin/projects",
         { title, description },
         { headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` } }
       );
@@ -55,7 +55,7 @@ const ProjectsPage: React.FC = () => {
 
   const handleDeleteProject = async (id: string) => {
     try {
-      await axios.delete(`https://barangay-portal-server.onrender.com/api/admin/projects/${id}`, {
+      await axios.delete(`http://localhost:3000/api/admin/projects/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
       });
       fetchProjects();

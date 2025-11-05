@@ -17,7 +17,7 @@ const FundRecords = () => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const res = await axios.get<FundRecord[]>("https://barangay-portal-server.onrender.com/api/admin/funds");
+        const res = await axios.get<FundRecord[]>("http://localhost:3000/api/admin/funds");
         setRecords(res.data);
       } catch (err) {
         console.error("Error fetching fund records:", err);

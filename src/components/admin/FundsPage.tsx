@@ -27,7 +27,7 @@ const FundsPage = () => {
 
   const fetchRecords = async () => {
     try {
-      const res = await axios.get("https://barangay-portal-server.onrender.com/api/admin/funds");
+      const res = await axios.get("http://localhost:3000/api/admin/funds");
       setRecords(res.data);
     } catch (err) {
       console.error("Error fetching funds:", err);
@@ -41,13 +41,13 @@ const FundsPage = () => {
     const payload = { source, description, amount: Number(amount), date };
     try {
       if (editingId) {
-        await axios.put(`https://barangay-portal-server.onrender.com/api/admin/funds/${editingId}`, payload);
+        await axios.put(`http://localhost:3000/api/admin/funds/${editingId}`, payload);
         setRecords((prev) =>
           prev.map((r) => (r._id === editingId ? { ...r, ...payload } : r))
         );
         setEditingId(null);
       } else {
-        const res = await axios.post("https://barangay-portal-server.onrender.com/api/admin/funds", payload);
+        const res = await axios.post("http://localhost:3000/api/admin/funds", payload);
         setRecords((prev) => [res.data, ...prev]);
       }
 
@@ -71,7 +71,7 @@ const FundsPage = () => {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this record?")) return;
     try {
-      await axios.delete(`https://barangay-portal-server.onrender.com/api/admin/funds/${id}`);
+      await axios.delete(`http://localhost:3000/api/admin/funds/${id}`);
       setRecords((prev) => prev.filter((r) => r._id !== id));
     } catch (err) {
       console.error("Error deleting record:", err);

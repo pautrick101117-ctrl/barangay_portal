@@ -28,7 +28,7 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch("https://barangay-portal-server.onrender.com/api/v1/register", { //https://barangay-portal-server.onrender.com/api/v1/register
+      const res = await fetch("http://localhost:3000/api/v1/register", { //https://barangay-portal-server.onrender.com/api/v1/register
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
