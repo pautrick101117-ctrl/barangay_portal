@@ -39,6 +39,7 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="news" element={<News />} />
           <Route path="fund-records" element={<FundRecords />} />
+          <Route path="faqs" element={<FAQs />} />
 
           {/* Protected routes for normal users */}
           <Route
@@ -51,7 +52,6 @@ const App = () => {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="about" element={<About />} />
             <Route path="project-suggestion" element={<ProjectSuggestion />} />
-            <Route path="faqs" element={<FAQs />} />
           </Route>
         </Route>
 

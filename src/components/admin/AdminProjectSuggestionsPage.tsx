@@ -5,7 +5,7 @@ interface Suggestion {
   _id: string;
   title: string;
   description: string;
-  date: string;
+  createdAt: string; // updated to match DB field
 }
 
 const AdminProjectSuggestionsPage: React.FC = () => {
@@ -66,7 +66,10 @@ const AdminProjectSuggestionsPage: React.FC = () => {
             >
               <div>
                 <h3 className="font-bold text-lg">{s.title}</h3>
-                <p className="text-gray-700">{s.description}</p>
+                <p className="text-gray-700 mb-1">{s.description}</p>
+                <p className="text-sm text-gray-500">
+                  Submitted: {new Date(s.createdAt).toLocaleString()}
+                </p>
               </div>
               <button
                 onClick={() => handleDelete(s._id)}
