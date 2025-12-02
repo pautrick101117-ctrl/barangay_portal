@@ -74,12 +74,7 @@ const Header = () => {
           )}
 
           {/* === ADMIN LOGIN BUTTON === */}
-          <NavLink
-            to="/admin-login"
-            className="bg-yellow-400 px-6 py-2 font-bold rounded-md hover:bg-yellow-500 text-sm sm:text-base transition"
-          >
-            ADMIN LOGIN
-          </NavLink>
+          
         </div>
 
         {/* === MOBILE MENU ICON === */}

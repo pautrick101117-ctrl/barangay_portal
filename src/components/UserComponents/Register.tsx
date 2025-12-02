@@ -51,9 +51,7 @@ const Register = () => {
     <div className="bg-[#62DC87] min-h-screen flex flex-col">
 
       <div className="flex justify-end p-2">
-        <NavLink to="/admin">
-          <img src="/adminLoginIcon.png" alt="admin icon" className="w-12 h-12 sm:w-14 sm:h-14" />
-        </NavLink>
+      
       </div>
 
       <div className="flex flex-col md:flex-row flex-1">
