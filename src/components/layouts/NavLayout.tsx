@@ -16,7 +16,6 @@ const NavLayout = () => {
     { path: "/", label: "HOME" },
     { path: "/dashboard", label: "DASHBOARD" },
     { path: "/about", label: "ABOUT" },
-    { path: "/fund-records", label: "FUND RECORDS" },
     { path: "/project-suggestion", label: "PROJECT SUGGESTION" },
     { path: "/faqs", label: "FAQS" },
   ];

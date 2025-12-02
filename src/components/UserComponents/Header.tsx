@@ -60,6 +60,15 @@ const Header = () => {
             </NavLink> : ''
             }
 
+            
+            <NavLink
+              to="/fund-records"
+              className="bg-gray-50 px-6 font-bold py-2 rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
+            >
+              FUND & RECORDS
+            </NavLink> 
+            
+
           <NavLink
             to="/news"
             className="bg-white/80 px-6 py-2 font-bold rounded-md hover:bg-gray-200 text-sm sm:text-base transition"

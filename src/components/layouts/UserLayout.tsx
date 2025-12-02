@@ -9,7 +9,7 @@ const UserLayout = () => {
   const homeStyle = "relative h-[calc(100vh-(120px))] sm:h-[calc(100vh-(144px))]"
 
   useEffect(() => {
-    setIsHomePage(location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/news") 
+    setIsHomePage(location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/news" || location.pathname === "/fund-records") 
   }, [location.pathname])
 
   return (

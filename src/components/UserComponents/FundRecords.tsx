@@ -7,6 +7,7 @@ type FundRecord = {
   description: string;
   amount: number;
   date: string;
+  imageUrl?: string;
 };
 
 const FundRecords = () => {
@@ -31,71 +32,94 @@ const FundRecords = () => {
   const total = records.reduce((acc, r) => acc + r.amount, 0);
 
   return (
-    <div className="p-4 relative">
-      <h1 className="font-extrabold text-2xl mb-6 border-b-4 border-[#62DC87] inline-block">
+    <div className="p-4 md:p-6 lg:p-8 max-w-6xl mx-auto">
+      <h1 className="font-extrabold text-2xl md:text-3xl mb-6 border-b-4 border-[#62DC87] inline-block">
         FUND RECORDS
       </h1>
 
       {loading ? (
-        <p>Loading fund records...</p>
+        <p className="text-gray-600">Loading fund records...</p>
       ) : records.length === 0 ? (
-        <p>No fund records found.</p>
+        <p className="text-gray-600">No fund records found.</p>
       ) : (
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead className="bg-[#62DC87] text-black">
-                <tr>
-                  <th className="py-3 px-4 font-bold border-b border-gray-300">DATE</th>
-                  <th className="py-3 px-4 font-bold border-b border-gray-300">SOURCE</th>
-                  <th className="py-3 px-4 font-bold border-b border-gray-300">DESCRIPTION</th>
-                  <th className="py-3 px-4 font-bold border-b border-gray-300 text-right">
-                    AMOUNT (₱)
-                  </th>
-                </tr>
-              </thead>
+        <>
+          {/* Records Grid */}
+          <div className="space-y-4 mb-6">
+            {records.map((record) => (
+              <div
+                key={record._id}
+                onClick={() => setSelectedRecord(record)}
+                className="bg-white shadow-md hover:shadow-xl rounded-lg p-4 md:p-5 cursor-pointer transition-all duration-200 border border-gray-200 hover:border-[#62DC87]"
+              >
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {/* Image */}
+                  <div className="flex-shrink-0">
+                    {record.imageUrl ? (
+                      <img
+                        src={record.imageUrl}
+                        alt="Fund"
+                        className="w-full sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-lg"
+                      />
+                    ) : (
+                      <div className="w-full sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">No Image</span>
+                      </div>
+                    )}
+                  </div>
 
-              <tbody>
-                {records.map((record) => (
-                  <tr
-                    key={record._id}
-                    onClick={() => setSelectedRecord(record)}
-                    className="hover:bg-gray-100 transition-colors border-b border-gray-200 cursor-pointer"
-                  >
-                    <td className="py-3 px-4 whitespace-nowrap">
-                      {new Date(record.date).toLocaleDateString()}
-                    </td>
-                    <td className="py-3 px-4 whitespace-nowrap">{record.source}</td>
-                    <td className="py-3 px-4 max-w-xs truncate">{record.description}</td>
-                    <td className="py-3 px-4 text-right font-semibold text-green-700">
-                      {record.amount.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                      <h3 className="font-bold text-lg text-gray-800">{record.source}</h3>
+                      <span className="text-sm text-gray-500 sm:text-right">
+                        {new Date(record.date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                      {record.description}
+                    </p>
 
-              <tfoot>
-                <tr className="bg-gray-100 font-bold text-black">
-                  <td colSpan={3} className="py-3 px-4 text-right">
-                    TOTAL:
-                  </td>
-                  <td className="py-3 px-4 text-right text-green-700">
-                    ₱{total.toLocaleString()}
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs uppercase text-gray-500 font-medium">Amount</span>
+                      <span className="font-bold text-xl text-green-700">
+                        ₱{record.amount.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+
+          {/* Total Card */}
+          <div className="bg-gradient-to-r from-[#62DC87] to-[#4FC76F] rounded-lg shadow-lg p-5 md:p-6">
+            <div className="flex items-center justify-between">
+              <span className="text-white font-bold text-lg md:text-xl">TOTAL FUNDS:</span>
+              <span className="text-white font-extrabold text-2xl md:text-3xl">
+                ₱{total.toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </>
       )}
 
       {/* MODAL */}
       {selectedRecord && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-white rounded-xl shadow-2xl p-6 w-[90%] max-w-md relative">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-md relative">
             <h2 className="text-xl font-bold mb-4 border-b pb-2 text-gray-800">
               {selectedRecord.source}
             </h2>
+
+            {/* IMAGE DISPLAY */}
+            {selectedRecord.imageUrl && (
+              <img
+                src={selectedRecord.imageUrl}
+                alt="Fund"
+                className="w-full h-48 object-cover rounded-md mb-4"
+              />
+            )}
 
             <p className="text-sm text-gray-500 mb-2">
               {new Date(selectedRecord.date).toLocaleDateString()}
