@@ -14,9 +14,10 @@ const NavLayout = () => {
 
   const navLinks = [
     { path: "/", label: "HOME" },
-    { path: "/dashboard", label: "DASHBOARD" },
-    { path: "/about", label: "ABOUT" },
+    { path: "/dashboard", label: "VOTING AND COMPLAINT" },
     { path: "/project-suggestion", label: "PROJECT SUGGESTION" },
+    { path: "/fund-records", label: "FUND RECORDS" },
+    { path: "/faqs", label: "FAQs" },
   ];
 
   return (

@@ -22,6 +22,7 @@ const AdminLayout = () => {
     { name: "Project Suggestions", to: "/admin/project-suggestions" },
     { name: "Barangay Officials", to: "/admin/officials" },
     { name: "Fund Records", to: "/admin/funds" },
+    { name: "Edit Home", to: "/admin/homeEdit" },
     { name: "News & Updates", to: "/admin/news" },
     { name: "Complaints", to: "/admin/complaints" }, // <-- NEW
   ];

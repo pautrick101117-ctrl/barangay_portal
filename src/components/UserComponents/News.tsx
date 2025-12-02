@@ -13,16 +13,16 @@ const News = () => {
   const [newsList, setNewsList] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedNews, setSelectedNews] = useState<NewsArticle | null>(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3000/api/admin/news"
-        );
+        const res = await axios.get("http://localhost:3000/api/admin/news");
         setNewsList(res.data);
       } catch (err) {
         console.error("Error fetching news:", err);
+        setError("Failed to load news. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -31,19 +31,25 @@ const News = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">LATEST NEWS</h1>
+    <div className="p-6 md:p-12 bg-gray-50 min-h-screen">
+      <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+        LATEST NEWS
+      </h1>
 
       {loading ? (
-        <p>Loading news...</p>
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-600 text-center">{error}</p>
       ) : newsList.length === 0 ? (
-        <p>No news articles found.</p>
+        <p className="text-gray-600 text-center">No news articles found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {newsList.map((news) => (
             <div
               key={news._id}
-              className="bg-white rounded-2xl shadow hover:shadow-lg transition cursor-pointer overflow-hidden"
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition cursor-pointer overflow-hidden transform hover:-translate-y-1 hover:scale-105"
               onClick={() => setSelectedNews(news)}
             >
               <img
@@ -56,7 +62,9 @@ const News = () => {
                 }}
               />
               <div className="p-4">
-                <h2 className="text-xl font-semibold mb-1">{news.title}</h2>
+                <h2 className="text-lg md:text-xl font-semibold mb-1 text-gray-800">
+                  {news.title}
+                </h2>
                 <p className="text-sm text-gray-500">
                   {new Date(news.date).toLocaleDateString()}
                 </p>
@@ -86,7 +94,9 @@ const News = () => {
                 e.currentTarget.src = "/sampleNewsPic.png";
               }}
             />
-            <h2 className="text-2xl font-semibold mb-2">{selectedNews.title}</h2>
+            <h2 className="text-2xl font-semibold mb-2 text-gray-800">
+              {selectedNews.title}
+            </h2>
             <p className="text-sm text-gray-500 mb-3">
               {new Date(selectedNews.date).toLocaleDateString()}
             </p>

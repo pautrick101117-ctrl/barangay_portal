@@ -11,9 +11,8 @@ const UserLayout = () => {
   useEffect(() => {
     setIsHomePage(location.pathname === "/" ||
       location.pathname === "/contact" ||
-      location.pathname === "/news" ||
-      location.pathname === "/fund-records"||
-      location.pathname === "/faqs") 
+      location.pathname === "/news" || 
+      location.pathname === "/about" ) 
   }, [location.pathname])
 
   return (

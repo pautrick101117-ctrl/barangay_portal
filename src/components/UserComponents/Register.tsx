@@ -1,9 +1,8 @@
-import { NavLink, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Register = () => {
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -12,133 +11,168 @@ const Register = () => {
     address: "",
     username: "",
     password: "",
-    confirmPassword: ""
-  })
+    confirmPassword: "",
+  });
+
+  const [status, setStatus] = useState({ message: "", type: "" }); // 'error' | 'success'
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    setStatus({ message: "", type: "" });
 
     if (formData.password !== formData.confirmPassword) {
-      console.error("Passwords do not match")
-      return
+      setStatus({ message: "Passwords do not match", type: "error" });
+      return;
     }
 
+    setLoading(true);
+
     try {
-      const res = await fetch("http://localhost:3000/api/v1/register", { //https://barangay-portal-server.onrender.com/api/v1/register
+      const res = await fetch("http://localhost:3000/api/v1/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      const data = await res.json()
-      console.log(data)
+      const data = await res.json();
 
       if (res.ok) {
-        navigate("/login")
+        setStatus({ message: "Registration successful! Redirecting to login...", type: "success" });
+        setTimeout(() => navigate("/login"), 1200);
       } else {
-        console.error(data.message || "Registration failed")
+        setStatus({ message: data.message || "Registration failed", type: "error" });
       }
     } catch (error) {
-      console.error("Error registering:", error)
+      console.error("Error registering:", error);
+      setStatus({ message: "Server error. Please try again later.", type: "error" });
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="bg-[#62DC87] min-h-screen flex flex-col">
-
-      <div className="flex justify-end p-2">
-      
-      </div>
-
-      <div className="flex flex-col md:flex-row flex-1">
-        
-        <div className="flex flex-col gap-2 items-center md:items-start min-w-fit px-4 md:px-5 mb-6 md:mb-0">
-          <NavLink to={'/'}>
-            <img src="/logo.png" alt="logo icon" className="w-[90px] h-[90px] sm:w-[100px] sm:h-[100px] md:w-[140px] md:h-[140px]" />
+    <div className="bg-[#62DC87] min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="max-w-5xl w-full flex flex-col md:flex-row bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden">
+        {/* Left Branding Section */}
+        <div className="flex flex-col items-center md:items-start justify-center bg-green-500 text-white md:w-1/2 p-8 gap-4">
+          <NavLink to="/">
+            <img src="/logo.png" alt="logo icon" className="w-28 h-28 md:w-36 md:h-36" />
           </NavLink>
-          <div className="text-center md:text-left">
-            <h3 className="relative font-extrabold text-base sm:text-lg md:text-[25px] after:content-[''] after:absolute after:bg-black after:bottom-[2px] md:after:bottom-[4px] after:left-0 after:right-[20px] md:after:right-[50px] after:h-[1px]">
-              BARANGAY. IBA
-            </h3>
-            <h5 className="text-xs sm:text-sm md:text-base">SILANG, CAVITE</h5>
-          </div>
+          <h2 className="text-2xl md:text-4xl font-bold">BARANGAY IBA</h2>
+          <p className="text-sm md:text-base">Silang, Cavite</p>
+          <p className="mt-4 text-white/90 text-center md:text-left">
+            Register to access community services, updates, and resources.
+          </p>
         </div>
 
-        <div className="relative h-full md:h-[calc(100vh-91px)] w-full z-10 flex items-center justify-center">
-          <img src="/background-1.png" alt="background image" className="absolute inset-0 w-full h-full object-cover -z-10" />
+        {/* Right Register Form Section */}
+        <div className="md:w-1/2 p-8 flex flex-col justify-center items-center gap-6 relative">
+          <img
+            src="/background-1.png"
+            alt="background"
+            className="absolute inset-0 w-full h-full object-cover -z-10 rounded-r-3xl opacity-20"
+          />
 
-          <form onSubmit={handleSubmit} className="bg-[#62dc87c8] w-full max-w-[700px] py-8 sm:py-10 px-6 sm:px-10 md:px-20 rounded-lg">
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">FIRST NAME</span>
-                <input type="text" name="firstName" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.firstName} onChange={handleChange} />
-              </label>
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-lg flex flex-col gap-4 bg-white/80 backdrop-blur-md p-6 rounded-xl shadow"
+          >
+            <h3 className="text-xl font-semibold text-center">Create an Account</h3>
 
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">LAST NAME</span>
-                <input type="text" name="lastName" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.lastName} onChange={handleChange} />
-              </label>
-
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">MIDDLE NAME</span>
-                <input type="text" name="middleName" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.middleName} onChange={handleChange} />
-              </label>
-
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">CONTACT NUMBER</span>
-                <input type="text" name="contactNumber" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.contactNumber} onChange={handleChange} />
-              </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {["firstName","lastName","middleName","contactNumber"].map((field) => (
+                <label key={field} className="flex flex-col">
+                  <span className="font-semibold text-sm mb-1">{field.replace(/([A-Z])/g,' $1').toUpperCase()}</span>
+                  <input
+                    type="text"
+                    name={field}
+                    value={formData[field as keyof typeof formData]}
+                    onChange={handleChange}
+                    className="px-2 py-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 outline-none"
+                  />
+                </label>
+              ))}
             </div>
 
-            <div className="flex flex-col gap-4 mt-6">
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">ADDRESS</span>
-                <input type="text" name="address" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.address} onChange={handleChange} />
-              </label>
+            <label className="flex flex-col mt-4">
+              <span className="font-semibold text-sm mb-1">ADDRESS</span>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="px-2 py-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 outline-none"
+              />
+            </label>
 
-              <label className="flex flex-col">
-                <span className="font-semibold text-sm mb-1">USERNAME</span>
-                <input type="text" name="username" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.username} onChange={handleChange} />
-              </label>
+            <label className="flex flex-col mt-4">
+              <span className="font-semibold text-sm mb-1">USERNAME</span>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                className="px-2 py-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 outline-none"
+              />
+            </label>
 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <label className="flex flex-col">
                 <span className="font-semibold text-sm mb-1">PASSWORD</span>
-                <input type="password" name="password" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.password} onChange={handleChange} />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 outline-none"
+                />
               </label>
-
               <label className="flex flex-col">
                 <span className="font-semibold text-sm mb-1">CONFIRM PASSWORD</span>
-                <input type="password" name="confirmPassword" className="px-2 py-1 rounded-md border border-gray-300 text-gray-800"
-                  value={formData.confirmPassword} onChange={handleChange} />
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  className="px-2 py-1 rounded-md border border-gray-300 focus:ring-2 focus:ring-green-400 outline-none"
+                />
               </label>
             </div>
 
-            <div className="w-full text-center mt-6">
-              <button type="submit" className="bg-[#eaeaea] hover:bg-[#d3d3d3] rounded-full w-full sm:w-auto sm:px-20 md:px-40 py-2 text-[18px] font-semibold">
-                REGISTER
-              </button>
-              <p className="font-semibold mt-2 text-sm sm:text-base">
-                ALREADY HAVE AN ACCOUNT? CLICK{" "}
-                <NavLink to="/login" className="text-blue-700">HERE!</NavLink>
+            <button
+              type="submit"
+              className="bg-green-500 text-white font-semibold py-2 rounded-full hover:bg-green-600 transition disabled:opacity-50 mt-4"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "REGISTER"}
+            </button>
+
+            {status.message && (
+              <p
+                className={`text-center mt-2 font-medium ${
+                  status.type === "error" ? "text-red-600" : "text-green-600"
+                }`}
+              >
+                {status.message}
               </p>
-            </div>
+            )}
+
+            <p className="text-center mt-3 font-medium text-sm">
+              Already have an account?{" "}
+              <NavLink to="/login" className="text-blue-700 underline">
+                Login here
+              </NavLink>
+            </p>
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

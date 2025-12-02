@@ -26,6 +26,7 @@ import ComplaintsPage from './components/admin/ComplaintPage'; // ✅ ADD THIS
 import AdminProtectedRoute from './auth/AdminProtectedRoute';
 import AdminLayout from './components/admin/Sidebar';
 import AdminProjectSuggestionsPage from './components/admin/AdminProjectSuggestionsPage';
+import AdminHomeEdit from './components/admin/AdminHomeEdit';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -38,8 +39,7 @@ const App = () => {
           <Route path="register" element={<Register />} />
           <Route path="contact" element={<Contact />} />
           <Route path="news" element={<News />} />
-          <Route path="fund-records" element={<FundRecords />} />
-          <Route path="faqs" element={<FAQs />} />
+          <Route path="about" element={<About />} />
 
           {/* Protected routes for normal users */}
           <Route
@@ -50,8 +50,10 @@ const App = () => {
             }
           >
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="about" element={<About />} />
             <Route path="project-suggestion" element={<ProjectSuggestion />} />
+            <Route path="fund-records" element={<FundRecords />} />
+            <Route path="faqs" element={<FAQs />} />
+
           </Route>
         </Route>
 
@@ -69,9 +71,11 @@ const App = () => {
           <Route path="projects" element={<ProjectsPage />} />
           <Route path="officials" element={<OfficialsPage />} />
           <Route path="funds" element={<FundsPage />} />
+          <Route path="homeEdit" element={<AdminHomeEdit />} />
           <Route path="news" element={<NewsPage />} />
           <Route path="complaints" element={<ComplaintsPage />} /> {/* ✅ NEW */}
           <Route path="project-suggestions" element={<AdminProjectSuggestionsPage />} />
+
         </Route>
       </>
     )
