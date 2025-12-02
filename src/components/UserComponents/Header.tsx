@@ -49,7 +49,24 @@ const Header = () => {
         </NavLink>
 
         {/* === DESKTOP NAV BUTTONS === */}
+
         <div className="hidden sm:flex items-center gap-4">
+            {
+            isLoggedIn ? <NavLink
+              to="/dashboard"
+              className="bg-gray-50 px-6 font-bold py-2 rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
+            >
+              DASHBOARD
+            </NavLink> : ''
+            }
+
+          <NavLink
+            to="/news"
+            className="bg-white/80 px-6 py-2 font-bold rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
+          >
+            NEWS & UPDATES
+          </NavLink>
+            
           <NavLink
             to="/contact"
             className="bg-white/80 px-6 py-2 font-bold rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
@@ -57,21 +74,14 @@ const Header = () => {
             CONTACT US
           </NavLink>
 
-          {isLoggedIn ? (
-            <NavLink
-              to="/dashboard"
-              className="bg-gray-50 px-6 font-bold py-2 rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
-            >
-              DASHBOARD
-            </NavLink>
-          ) : (
+          {!isLoggedIn ? (
             <NavLink
               to="/login"
               className="bg-gray-50 px-6 font-bold py-2 rounded-md hover:bg-gray-200 text-sm sm:text-base transition"
             >
               LOGIN
-            </NavLink>
-          )}
+            </NavLink> 
+          ) : ''}
 
           {/* === ADMIN LOGIN BUTTON === */}
           

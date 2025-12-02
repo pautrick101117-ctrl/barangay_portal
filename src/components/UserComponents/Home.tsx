@@ -21,7 +21,7 @@ export default function Home() {
           </p>
 
           <NavLink
-            to="/about"
+            to="/news"
             className="inline-block bg-white text-gray-900 font-semibold px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition-all"
           >
             News & Updates

@@ -37,6 +37,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="news" element={<News />} />
 
           {/* Protected routes for normal users */}
           <Route
@@ -48,7 +49,6 @@ const App = () => {
           >
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="about" element={<About />} />
-            <Route path="news" element={<News />} />
             <Route path="fund-records" element={<FundRecords />} />
             <Route path="project-suggestion" element={<ProjectSuggestion />} />
             <Route path="faqs" element={<FAQs />} />
